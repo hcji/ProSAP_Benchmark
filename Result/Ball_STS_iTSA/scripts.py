@@ -13,18 +13,18 @@ import matplotlib.pyplot as plt
 sys.path.append(r'D:\project\pyvenn')
 import venn
 
-data = pd.read_csv('D:/project/CETSA_Benchmark/Data/Ball_STS_iTSA/Staturosporine_iTSA_data_Ball.csv')
+data = pd.read_csv('D:/project/TSAnalyst_Benchmark/Data/Ball_STS_iTSA/Staturosporine_iTSA_data_Ball.csv')
 kins = list(data.loc[data.loc[:,'Kinase.Family.Uniprot']=='yes','Accession'].values)
 
-t_test = pd.read_csv('D:/project/CETSA_Benchmark/Result/Ball_STS_iTSA/t_test_52.csv')
-limma = pd.read_csv('D:/project/CETSA_Benchmark/Result/Ball_STS_iTSA/limma_52.csv')
-edgeR = pd.read_csv('D:/project/CETSA_Benchmark/Result/Ball_STS_iTSA/edgeR_52.csv')
-DESeq = pd.read_csv('D:/project/CETSA_Benchmark/Result/Ball_STS_iTSA/DESeq2_52.csv')
+t_test = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Ball_STS_iTSA/t_test_56.csv')
+limma = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Ball_STS_iTSA/limma_56.csv')
+edgeR = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Ball_STS_iTSA/edgeR_56.csv')
+DESeq = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Ball_STS_iTSA/DESeq2_56.csv')
 
 t_test_sig = t_test.loc[t_test.loc[:, '-logAdjPval'] > 3, 'Accession']
-limma_sig = t_test.loc[limma.loc[:, '-logAdjPval'] > 3, 'Accession']
-edgeR_sig = t_test.loc[edgeR.loc[:, '-logAdjPval'] > 3, 'Accession']
-DESeq_sig = t_test.loc[DESeq.loc[:, '-logAdjPval'] > 3, 'Accession']
+limma_sig = limma.loc[limma.loc[:, '-logAdjPval'] > 3, 'Accession']
+edgeR_sig = edgeR.loc[edgeR.loc[:, '-logAdjPval'] > 3, 'Accession']
+DESeq_sig = DESeq.loc[DESeq.loc[:, '-logAdjPval'] > 3, 'Accession']
 
 t_test_kin = [i for i in t_test_sig if i in kins]
 limma_kin = [i for i in limma_sig if i in kins]
@@ -50,9 +50,6 @@ labels = venn.get_labels([t_test_kin, limma_kin, edgeR_kin, DESeq_kin], fill=['n
 fig, ax = venn.venn4(labels, names = ['t_test', 'limma', 'edgeR', 'DESeq2'], figsize = (8,6), fontsize=14)
 fig.show()
 
-labels = venn.get_labels([t_test_sig, limma_sig, edgeR_sig, DESeq_sig], fill=[])
-fig, ax = venn.venn4(labels, names = ['t_test', 'limma', 'edgeR', 'DESeq2'], figsize = (8,6), fontsize=14)
-fig.show()
 
 sig_number = np.array([len(t_test_sig), len(limma_sig), len(edgeR_sig), len(DESeq_sig)])
 kin_number = np.array([len(t_test_kin), len(limma_kin), len(edgeR_kin), len(DESeq_kin)])
@@ -61,7 +58,7 @@ non_number = sig_number - kin_number
 plot_data = pd.DataFrame({'Method': ['t_test', 'limma', 'edgeR', 'DESeq2'],
                              'Kinase': kin_number, 'Others': non_number})
     
-plt.figure(figsize=(8,6), dpi = 300)
+plt.figure(figsize=(6, 4.5), dpi = 300)
 p1 = plt.bar(np.arange(4), non_number, 0.6, color = '#5B9BD5', bottom = kin_number, edgecolor = 'black')
 p2 = plt.bar(np.arange(4), kin_number, 0.6, color = '#C00000', edgecolor = 'black')
 plt.tick_params(labelsize = 13)

@@ -12,16 +12,16 @@ import matplotlib.pyplot as plt
 sys.path.append(r'D:\project\pyvenn')
 import venn
 
-data = pd.read_csv('D:/project/CETSA_Benchmark/Raw/Staturosporine_TPP_data_Savitski.csv')
+data = pd.read_csv('D:\project/TSAnalyst_Benchmark/Data/Sav_STS/Staturosporine_TPP_data_Savitski.csv')
 kins = data.loc[data.loc[:,'is kinase?']=='YES','Accession'].values
 
-tpp = pd.read_csv('D:/project/CETSA_Benchmark/Result/Sav_STS/TPP.csv')
-tpp_nofilter = pd.read_csv('D:/project/CETSA_Benchmark/Result/Sav_STS/TPP_no_filter.csv')
-nparc = pd.read_csv('D:/project/CETSA_Benchmark/Result/Sav_STS/NPARC.csv')
-chebyshev = pd.read_csv('D:/project/CETSA_Benchmark/Result/Sav_STS/Chebyshev.csv')
-euclidean = pd.read_csv('D:/project/CETSA_Benchmark/Result/Sav_STS/Euclidean.csv')
-cosine = pd.read_csv('D:/project/CETSA_Benchmark/Result/Sav_STS/Cosine.csv')
-cityblock = pd.read_csv('D:/project/CETSA_Benchmark/Result/Sav_STS/Cityblock.csv')
+tpp = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Sav_STS/TPP.csv')
+tpp_nofilter = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Sav_STS/TPP_no_filter.csv')
+nparc = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Sav_STS/NPARC.csv')
+chebyshev = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Sav_STS/Chebyshev.csv')
+euclidean = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Sav_STS/Euclidean.csv')
+cosine = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Sav_STS/Cosine.csv')
+cityblock = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Sav_STS/Cityblock.csv')
 
 tpp_sig = tpp.loc[tpp.loc[:,'Score'] > 0,'Accession'].values
 tpp_nofilter_sig = tpp_nofilter.loc[tpp_nofilter.loc[:,'Score'] >= 2.417,'Accession'].values
