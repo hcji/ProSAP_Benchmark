@@ -9,12 +9,12 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-data = pd.read_csv('D:/project/TSAnalyst_Benchmark/Data/Ball_STS_iTSA/Staturosporine_iTSA_data_Ball.csv')
+data = pd.read_csv('Data/Ball_STS_iTSA/Staturosporine_iTSA_data_Ball.csv')
 kins = list(data.loc[data.loc[:,'Kinase.Family.Uniprot']=='yes','Accession'].values)
 
-limma_5 = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Ball_STS_iTSA/limma_52.csv')
-limma_4 = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Ball_STS_iTSA/limma_52_4.csv')
-limma_3 = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Ball_STS_iTSA/limma_52_3.csv')
+limma_5 = pd.read_csv('Result/Ball_STS_iTSA/limma_52.csv')
+limma_4 = pd.read_csv('Result/Ball_STS_iTSA/limma_52_4.csv')
+limma_3 = pd.read_csv('Result/Ball_STS_iTSA/limma_52_3.csv')
 
 limma_3_sig = limma_3.loc[limma_3.loc[:, '-logAdjPval'] > 3, 'Accession']
 limma_4_sig = limma_4.loc[limma_4.loc[:, '-logAdjPval'] > 3, 'Accession']

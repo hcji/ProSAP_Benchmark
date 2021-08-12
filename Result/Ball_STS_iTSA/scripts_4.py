@@ -12,6 +12,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 sys.path.append(r'D:\project\pyvenn')
 import venn
+from tqdm import tqdm
 
 data = pd.read_csv('Data/Ball_STS_iTSA/Staturosporine_iTSA_data_Ball.csv')
 kins = list(data.loc[data.loc[:,'Kinase.Family.Uniprot']=='yes','Accession'].values)
@@ -67,3 +68,27 @@ plt.ylabel('Numbers', fontsize = 13)
 plt.legend((p1[0], p2[0]), ('Others', 'Kinase'), fontsize = 13)
 plt.show()
 
+
+prots = t_test['Accession']
+ranks = []
+for p in tqdm(prots):
+    r1 = 1 + list(t_test['Accession']).index(p)
+    r2 = 1 + list(limma['Accession']).index(p)
+    r3 = 1 + list(edgeR['Accession']).index(p)
+    r4 = 1 + list(DESeq['Accession']).index(p)
+    r = (r1 + r2 + r3 + r4) / 4
+    ranks.append(r)
+consesus = pd.DataFrame(zip(prots, ranks))
+consesus.columns = ['Accession', 'Ranks']
+consesus = consesus.sort_values('Ranks')
+consesus_ifkin = np.cumsum([i in kins for i in consesus['Accession']])
+
+plt.figure(figsize=(6,4.5), dpi=300)
+plt.plot(np.arange(1, 101) - t_test_ifkin[:100], t_test_ifkin[:100], label='T-Test')
+plt.plot(np.arange(1, 101) - limma_ifkin[:100], limma_ifkin[:100], label='Limma')
+plt.plot(np.arange(1, 101)- edgeR_ifkin[:100], edgeR_ifkin[:100], label='edgeR')
+plt.plot(np.arange(1, 101)- DESeq_ifkin[:100], DESeq_ifkin[:100], label='DESeq2')
+plt.plot(np.arange(1, 101)- consesus_ifkin[:100], DESeq_ifkin[:100], label='Consesus')
+plt.xlabel('Number of false positive')
+plt.ylabel('Number of true positive')
+plt.legend(loc = 'lower right')
