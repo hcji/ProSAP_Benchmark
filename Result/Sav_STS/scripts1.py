@@ -9,11 +9,11 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-data = pd.read_csv('D:/project/TSAnalyst_Benchmark/Data/Sav_STS/Staturosporine_TPP_data_Savitski.csv')
+data = pd.read_csv('Data/Sav_STS/Staturosporine_TPP_data_Savitski.csv')
 kins = data.loc[data.loc[:,'is kinase?']=='YES','Accession'].values
 
-tpp = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Sav_STS/TPP.csv')
-tpp_nofilter = pd.read_csv('D:/project/TSAnalyst_Benchmark/Result/Sav_STS/TPP_no_filter.csv')
+tpp = pd.read_csv('Result/Sav_STS/TPP.csv')
+tpp_nofilter = pd.read_csv('Result/Sav_STS/TPP_no_filter.csv')
 
 wh = np.where([p in list(kins) for p in tpp_nofilter['Accession']])[0]
 
@@ -38,10 +38,11 @@ tpp_rep1_ifkin = np.cumsum([i in kins for i in tpp_rep1['Accession']])
 tpp_rep2_ifkin = np.cumsum([i in kins for i in tpp_rep2['Accession']])
 
 plt.figure(figsize=(6,4.5), dpi=300)
+plt.plot(np.arange(1, 101) - tpp_ifkin[:100], tpp_ifkin[:100], label='TPP with filter')
 plt.plot(np.arange(1, 101) - tpp_nofilter_ifkin[:100], tpp_nofilter_ifkin[:100], label='TPP no filter')
 plt.plot(np.arange(1, 101) - tpp_rep1_ifkin[:100], tpp_rep1_ifkin[:100], label='TPP replicate 1')
 plt.plot(np.arange(1, 101) - tpp_rep2_ifkin[:100], tpp_rep2_ifkin[:100], label='TPP replicate 2')
 plt.xlabel('Number of false positive')
 plt.ylabel('Number of true positive')
-plt.legend(loc = 'lower right')
+plt.legend()
 
