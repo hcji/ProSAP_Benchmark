@@ -39,7 +39,7 @@ tpp_rep2_ifkin = np.cumsum([i in kins for i in tpp_rep2['Accession']])
 
 plt.figure(figsize=(6,4.5), dpi=300)
 plt.plot(np.arange(1, 101) - tpp_ifkin[:100], tpp_ifkin[:100], label='TPP with filter')
-plt.plot(np.arange(1, 101) - tpp_nofilter_ifkin[:100], tpp_nofilter_ifkin[:100], label='TPP no filter')
+plt.plot(np.arange(1, 101) - tpp_nofilter_ifkin[:100], tpp_nofilter_ifkin[:100], label='TPP without filter')
 plt.plot(np.arange(1, 101) - tpp_rep1_ifkin[:100], tpp_rep1_ifkin[:100], label='TPP replicate 1')
 plt.plot(np.arange(1, 101) - tpp_rep2_ifkin[:100], tpp_rep2_ifkin[:100], label='TPP replicate 2')
 plt.xlabel('Number of false positive')

@@ -12,9 +12,9 @@ import matplotlib.pyplot as plt
 data = pd.read_csv('Data/Ball_STS_iTSA/Staturosporine_iTSA_data_Ball.csv')
 kins = list(data.loc[data.loc[:,'Kinase.Family.Uniprot']=='yes','Accession'].values)
 
-limma_5 = pd.read_csv('Result/Ball_STS_iTSA/limma_52.csv')
-limma_4 = pd.read_csv('Result/Ball_STS_iTSA/limma_52_4.csv')
-limma_3 = pd.read_csv('Result/Ball_STS_iTSA/limma_52_3.csv')
+limma_5 = pd.read_csv('Result/Ball_STS_iTSA/DESeq2_52.csv')
+limma_4 = pd.read_csv('Result/Ball_STS_iTSA/DESeq2_52_4.csv')
+limma_3 = pd.read_csv('Result/Ball_STS_iTSA/DESeq2_52_3.csv')
 
 limma_3_sig = limma_3.loc[limma_3.loc[:, '-logAdjPval'] > 3, 'Accession']
 limma_4_sig = limma_4.loc[limma_4.loc[:, '-logAdjPval'] > 3, 'Accession']
@@ -47,9 +47,9 @@ limma_4_ifkin = np.cumsum([i in kins for i in limma_4['Accession']])
 limma_5_ifkin = np.cumsum([i in kins for i in limma_5['Accession']])
 
 plt.figure(figsize=(6,4.5), dpi=300)
-plt.plot(np.arange(1, 101) - limma_3_ifkin[:100], limma_3_ifkin[:100], label='Limma_3_replicates')
-plt.plot(np.arange(1, 101) - limma_4_ifkin[:100], limma_4_ifkin[:100], label='Limma_4_replicates')
-plt.plot(np.arange(1, 101) - limma_5_ifkin[:100], limma_5_ifkin[:100], label='Limma_5_replicates')
+plt.plot(np.arange(1, 101) - limma_3_ifkin[:100], limma_3_ifkin[:100], label='DESeq2_3_replicates')
+plt.plot(np.arange(1, 101) - limma_4_ifkin[:100], limma_4_ifkin[:100], label='DESeq2_4_replicates')
+plt.plot(np.arange(1, 101) - limma_5_ifkin[:100], limma_5_ifkin[:100], label='DESeq2_5_replicates')
 plt.xlabel('Number of false positive')
 plt.ylabel('Number of true positive')
 plt.legend(loc = 'lower right')
